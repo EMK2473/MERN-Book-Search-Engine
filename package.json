@@ -14,5 +14,9 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.8.10",
+    "apollo-server-express": "^3.13.0"
   }
 }

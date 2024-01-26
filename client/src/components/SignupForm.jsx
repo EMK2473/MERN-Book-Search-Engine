@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
-import { createUser } from '../utils/API';
+// importing mutations
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
+// removing api calls
+// import { createUser } from '../utils/API';
 import Auth from '../utils/auth';
 
 const SignupForm = () => {
@@ -11,6 +15,19 @@ const SignupForm = () => {
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
+
+  // bring in mutation hook 
+  // set up addUser function 
+  // handle with error object 
+  const [addUser, {error}] = useMutation(ADD_USER);
+
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
+    }
+  }, [error]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -27,26 +44,37 @@ const SignupForm = () => {
       event.stopPropagation();
     }
 
+    // remove create user api call for addUser hook
+    // try {
+    //   const response = await createUser(userFormData);
+
+    //   if (!response.ok) {
+    //     throw new Error('something went wrong!');
+    //   }
+
+    //   const { token, user } = await response.json();
+    //   console.log(user);
+    //   Auth.login(token);
+    // } catch (err) {
+    //   console.error(err);
+    //   setShowAlert(true);
+    // }
+
+
     try {
-      const response = await createUser(userFormData);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
-    } catch (err) {
-      console.error(err);
-      setShowAlert(true);
-    }
-
-    setUserFormData({
-      username: '',
-      email: '',
-      password: '',
-    });
+      const { data } = await addUser({
+        variables: { ...userFormData },
+      });
+      Auth.login(data.addUser.token)
+      }catch(err) {
+      console.error(err)
+      };
+      
+      setUserFormData({
+        username: '',
+        email: '',
+        password: '',
+      });
   };
 
   return (
