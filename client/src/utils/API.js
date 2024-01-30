@@ -1,3 +1,4 @@
+// Commented out once converted to Apollo graphql endpoint
 // // we're converting the api routes to the single graphql endpoint?
 
 // // route to get logged in user's info (needs the token)
