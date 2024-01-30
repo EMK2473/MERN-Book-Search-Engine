@@ -86,3 +86,20 @@ export const REMOVE_BOOK = gql`
     }
   }
 `;
+
+// new SEARCH_BOOKS query
+export const SEARCH_BOOKS = gql`
+  query searchBooks($searchTerm: String!) {
+    searchBooks(searchTerm: $searchTerm) {
+      id
+      volumeInfo {
+        authors
+        title
+        description
+        imageLinks {
+          thumbnail
+        }
+      }
+    }
+  }
+`;

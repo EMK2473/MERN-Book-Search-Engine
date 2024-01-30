@@ -48,10 +48,12 @@ const SavedBooks = () => {
     }
   };
 
-  // if data isn't here yet, say so
-  if (!userDataLength) {
-    return <h2>LOADING...</h2>;
-  }
+
+// if data isn't here yet, say so
+if (!userData || !userData.savedBooks) {
+  return <h2>LOADING...</h2>;
+}
+
 
   return (
     <>
