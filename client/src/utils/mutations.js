@@ -14,7 +14,7 @@ export const LOGIN_USER = gql`
 
 // Include:
 // ADD_USER
-// template tag gql` ` 
+// template tag gql` `
 // define: mutation($value1: valueType, $value2: valueType)
 // call: mutation(key: $value1, key2: $value2 )
 // requesting fields/nested object queries
@@ -40,17 +40,49 @@ export const ADD_USER = gql`
   }
 `;
 // SAVE_BOOK
-// template tag gql` ` 
+// template tag gql` `
 // define: mutation($value1: valueType, $value2: valueType)
 // call: mutation(key: $value1, key2: $value2 )
 // export const SAVE_BOOK = gql`
 // mutation saveBook()
 // `
+export const SAVE_BOOK = gql`
+  mutation saveBook($newBook: InputBook!) {
+    saveBook(newBook: $newBook) {
+      _id
+      username
+      email
+      savedBooks {
+        bookId
+        authors
+        description
+        title
+        image
+        link
+      }
+    }
+  }
+`;
 
-
-
-
-// template tag gql` ` 
+// template tag gql` `
 // define: mutation($value: valueType, $value2: valueType)
 // call: mutation(key: $value, key2: $value2 )
 // REMOVE_BOOK
+
+export const REMOVE_BOOK = gql`
+  mutation removeBook($bookId: ID!) {
+    removeBook(bookId: $bookId) {
+      _id
+      username
+      email
+      savedBooks {
+        bookId
+        authors
+        description
+        title
+        image
+        link
+      }
+    }
+  }
+`;
