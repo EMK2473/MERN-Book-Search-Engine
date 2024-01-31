@@ -29,7 +29,6 @@ const SavedBooks = () => {
   // Check if the user is authenticated
   if (!Auth.loggedIn()) {
     // Redirect to the login page or handle unauthorized access
-    // Example: <Redirect to="/login" />
     return <h2>Please log in to view your saved books.</h2>;
   }
 
@@ -45,6 +44,8 @@ const SavedBooks = () => {
       const updatedUser = response.data.removeBook;
       // setUserData(updatedUser);
       // no need to call setUserData
+
+      
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
@@ -75,8 +76,8 @@ if (!userData || !userData.savedBooks) {
         <Row>
   {userData.savedBooks.map((book) => {
     return (
-      <Col key={book.bookId} md="4">
-        <Card border='dark'>
+      <Col md="4">
+        <Card key={book.bookId} border='dark'>
           {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
           <Card.Body>
             <Card.Title>{book.title}</Card.Title>
