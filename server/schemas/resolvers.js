@@ -35,7 +35,7 @@ const resolvers = {
           }
     
           const token = signToken(user);
-    
+          console.log('Logged IN')
           return { token, user };
         },
         saveBook: async (parent, { newBook }, context) => {
