@@ -23,7 +23,10 @@ app.use(express.json());
 
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  });
 }
 
 
@@ -42,15 +45,3 @@ const startApolloServer = async (typeDefs, resolvers) => {
   
 // Call the async function to start the server
 startApolloServer(typeDefs, resolvers);
-
-
-
-
-
-
-
-
-
-
-
-
