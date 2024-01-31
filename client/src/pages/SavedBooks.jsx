@@ -16,20 +16,24 @@ import { REMOVE_BOOK } from '../utils/mutations';
 // import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
-
 const SavedBooks = () => {
-  // useQuery hook to fetch user data
   const { loading, data } = useQuery(GET_ME);
-
-  // useMutation hook to remove a book
   const [removeBook] = useMutation(REMOVE_BOOK);
 
-  // if data isn't here yet, say so
   if (loading) {
     return <h2>LOADING...</h2>;
   }
 
   const userData = data ? data.me : {};
+
+  // Check if the user is authenticated
+  if (!Auth.loggedIn()) {
+    // Redirect to the login page or handle unauthorized access
+    // Example: <Redirect to="/login" />
+    return <h2>Please log in to view your saved books.</h2>;
+  }
+
+  
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {

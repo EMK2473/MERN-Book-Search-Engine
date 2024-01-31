@@ -69,7 +69,7 @@ const SearchBooks = () => {
   const handleSaveBook = async (bookId) => {
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-  
+    console.log("token:", token)
     if (!token) {
       return false;
     }
@@ -93,8 +93,8 @@ const SearchBooks = () => {
       console.error("Save Book Mutation Error:", err);
     }
   };
-  
-  
+
+  console.log("savedBookId:", savedBookIds)
   
   return (
     <>
